@@ -1,0 +1,31 @@
+Image=imread('charact2.bmp');
+
+image2=rgb2gray(Image);
+%%%%%%%%%%following im2gray%%%%%%%%%%
+grayimage=double(image2);
+[M,N]=size(grayimage);
+g=0;g0=0;T=0;
+for k=1:255
+   w0=0;w1=0;ave0=0;ave1=0;N1=0;N0=0;gray1=0;gray0=0;
+    for i=1:M
+        for j=1:N
+            if grayimage(i,j)>k
+           N1=N1+1;
+           gray1=double(gray1+grayimage(i,j));
+            else
+           N0=N0+1;
+                gray0=(gray0+grayimage(i,j));
+        end
+    end
+    end
+
+w0=N0/(M*N);
+w1=N1/(M*N);
+ave0=gray0/N0;
+ave1=gray1/N1;
+g=w0*w1*(ave0-ave1)^2;
+if g>g0
+    T=k;%%%T=thresholding
+    g0=g;
+end
+end
